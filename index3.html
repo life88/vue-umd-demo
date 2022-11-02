@@ -23,6 +23,24 @@
         <h3>Vue3 使用 vue2 写法</h3>
         {{ message }}
         <el-button type="primary" @click="onClick">点击按钮{{ count }}</el-button>
+        <p></p>
+        <el-button type="primary" @click="showDialog">显示弹窗</el-button>
+        <el-dialog
+            v-model="visible"
+            title="Tips"
+            width="30%"
+            :before-close="closeDialog"
+        >
+            <span>This is a message</span>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button @click="visible = false">Cancel</el-button>
+                    <el-button type="primary" @click="visible = false">
+                        Confirm
+                    </el-button>
+                </span>
+            </template>
+        </el-dialog>
     </div>
     <script>
         function renderApp(Com, container){
@@ -37,11 +55,18 @@
                 return {
                     message: 'Hello World!',
                     count: 0,
+                    visible: false,
                 }
             },
             methods: {
                 onClick(){
                     this.count ++;
+                },
+                showDialog(){
+                    this.visible = true;
+                },
+                closeDialog(){
+                    this.visible = false;
                 }
             },
         }
